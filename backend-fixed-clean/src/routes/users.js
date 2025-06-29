@@ -1,14 +1,29 @@
+const logger = require("../utils/logger");
 
-const express = require("express");
-const router = express.Router();
-const authMiddleware = require("../middleware/auth");
+// Dummy follow logic (replace with real DB ops)
+const follow = async (req, res) => {
+  logger.verbose("follow called");
+  res.json({ message: "follow OK" });
+};
+const unfollow = async (req, res) => {
+  logger.verbose("unfollow called");
+  res.json({ message: "unfollow OK" });
+};
+const getMyFollowers = async (req, res) => {
+  res.json({ followers: [] });
+};
+const getMyFollowing = async (req, res) => {
+  res.json({ following: [] });
+};
+const getStats = async (req, res) => {
+  res.json({ stats: { followers: 0, following: 0 } });
+};
 
-const usersController = require("../controllers/users");
-
-router.post("/:id/follow", authMiddleware, usersController.follow);
-router.delete("/:id/follow", authMiddleware, usersController.unfollow);
-router.get("/followers", authMiddleware, usersController.getMyFollowers);
-router.get("/following", authMiddleware, usersController.getMyFollowing);
-router.get("/:id/stats", authMiddleware, usersController.getStats);
-
-module.exports = router;
+// ✅ THIS is the key part causing all your issues:
+module.exports = {
+  follow,
+  unfollow,
+  getMyFollowers,
+  getMyFollowing,
+  getStats,
+};
