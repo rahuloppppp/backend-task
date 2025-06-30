@@ -37,4 +37,9 @@ router.get("/search", authenticateToken, searchUsers);
 // GET /api/users/:user_id - Get user profile
 router.get("/:user_id", authenticateToken, getUserProfile);
 
+// ✅ NEW: GET /api/users - Confirm route works
+router.get("/", (req, res) => {
+    res.json({ message: "Users route working" });
+});
+
 module.exports = router;
