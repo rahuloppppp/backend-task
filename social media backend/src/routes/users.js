@@ -16,6 +16,11 @@ const router = express.Router();
  * User-related routes
  */
 
+// ✅ GET /api/users - Confirm route works
+router.get("/", (req, res) => {
+    res.json({ message: "Users route working" });
+});
+
 // POST /api/users/:user_id/follow - Follow a user
 router.post("/:user_id/follow", authenticateToken, follow);
 
@@ -34,12 +39,7 @@ router.get("/stats", authenticateToken, getFollowStats);
 // GET /api/users/search - Find users by name
 router.get("/search", authenticateToken, searchUsers);
 
-// GET /api/users/:user_id - Get user profile
+// ⚠️ This should always be LAST!
 router.get("/:user_id", authenticateToken, getUserProfile);
-
-// ✅ NEW: GET /api/users - Confirm route works
-router.get("/", (req, res) => {
-    res.json({ message: "Users route working" });
-});
 
 module.exports = router;
